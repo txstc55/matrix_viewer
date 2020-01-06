@@ -3,7 +3,7 @@ project(matrix_viewer)
 
 
 
-set(THIRD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/)
+set(THIRD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/)
 
 
 
@@ -15,7 +15,13 @@ file(GLOB SOURCES
 )
 
 
-
+### add tbb
+add_subdirectory(${THIRD_PARTY_DIR}tbb)
+set(TBB_BUILD_STATIC ON CACHE BOOL " " FORCE)
+set(TBB_BUILD_SHARED OFF CACHE BOOL " " FORCE)
+set(TBB_BUILD_TBBMALLOC OFF CACHE BOOL " " FORCE)
+set(TBB_BUILD_TBBMALLOC_PROXY OFF CACHE BOOL " " FORCE)
+set(TBB_BUILD_TESTS OFF CACHE BOOL " " FORCE)
 
 add_compile_options(-std=c++11 -O3)
 
@@ -23,13 +29,4 @@ add_compile_options(-std=c++11 -O3)
 add_executable(${PROJECT_NAME}_bin ${SOURCES})
 
 
-
-add_compile_options(-print-file-name=library)
-set(CMAKE_CXX_STANDARD 11) # C++11...
-set(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
-set(CMAKE_CXX_EXTENSIONS OFF) #...without compiler extensions like gnu++11
-if (WIN32)
-  set(tbb_debug_postfix "_debug") # to fit pragmas in _windef.h inside TBB
-endif()
-
-target_link_libraries(${PROJECT_NAME}_bin ncurses)
+target_link_libraries(${PROJECT_NAME}_bin ncurses tbb_static)

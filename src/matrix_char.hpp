@@ -1,7 +1,7 @@
 #pragma once
 #include<vector>
 #include<random>
-
+#include <tbb/parallel_for.h>
 class matrix_char{
 private:
     int max_y, max_x;                         // used to initialize the 2d array

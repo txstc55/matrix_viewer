@@ -16,7 +16,7 @@ int main(){
 
     timeout(50);
 
-    curs_set(0);
+    curs_set(0); 
 
     // get the maximum window size
     int max_x, max_y;
