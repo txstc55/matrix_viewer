@@ -38,18 +38,12 @@ int main(){
     }
     unsigned int density = 10;
     matrix_char matrix = matrix_char(max_y, max_x, 20);
-    // for (unsigned int i=0; i<60; i++){
-    //     matrix.nextFrame();
-    // }
+
 
     unsigned int loop=0;
     while(1){
-        // loop++;
-        // loop = (loop+1)%20;
+
         c = wgetch(stdscr);
-        // attron(COLOR_PAIR(40-loop));
-        // addch(c);
-        // attron(COLOR_PAIR(30));
         for (unsigned int i=0; i<max_y; i++){
             for (unsigned int j=0; j<max_x; j++){
                 attron(COLOR_PAIR(matrix.color_map[i][j]));

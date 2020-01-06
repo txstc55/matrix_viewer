@@ -6,14 +6,14 @@ class matrix_char{
 private:
     int max_y, max_x;                         // used to initialize the 2d array
     std::vector<int> first_row;               // if negative then don't generate anything, if positive, then keep decreasing until it's zero
-    int density;                              // the density of char on he screen
+    int min_length;                           // the minimum length of chars on he screen
     const char* chars = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm?.!@#$%&*+-:;";
     const unsigned int chars_length = sizeof(chars)/sizeof(char);
 
 
 public:
     // init the char map
-    matrix_char(const int max_y, const int max_x, const int density);
+    matrix_char(const int max_y, const int max_x, const int min_length);
     // calculate the char and position for next map
     void nextFrame();
 
