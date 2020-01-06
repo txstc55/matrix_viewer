@@ -1,3 +1,6 @@
 [submodule "third_party/tbb"]
 	path = third_party/tbb
 	url = https://github.com/wjakob/tbb
+[submodule "third_party/eigen-git-mirror"]
+	path = third_party/eigen-git-mirror
+	url = https://github.com/eigenteam/eigen-git-mirror
