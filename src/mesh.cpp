@@ -56,7 +56,7 @@ void mesh::rotateX(bool if_increase)
     rotx << 1, 0, 0,
         0, cos(rx), sin(rx),
         0, -sin(rx), cos(rx);
-    points = rotx * points;
+    parallelMatrixMultiplication(rotx, points);
     // normals = rotx * normals;
     computeMask();
 }
@@ -68,7 +68,7 @@ void mesh::rotateY(bool if_increase)
     roty << cos(ry), 0, -sin(ry),
         0, 1, 0,
         sin(ry), 0, cos(ry);
-    points = roty * points;
+    parallelMatrixMultiplication(roty, points);
     // normals = roty * normals;
     computeMask();
 }
@@ -78,7 +78,8 @@ void mesh::scale(bool if_increase)
     if (if_increase)
     {
         scaling += 0.05;
-        if (scaling>1.4){
+        if (scaling > 1.4)
+        {
             scaling = 1.4;
         }
     }
@@ -93,20 +94,18 @@ void mesh::scale(bool if_increase)
     computeMask();
 }
 
-Vector3f mesh::computeNormal(const Vector3f a, const Vector3f b, const Vector3f c)
+Vector3f mesh::computeNormal(Vector3f a, Vector3f b, Vector3f c)
 {
-    Vector3f edge1 = b - a;
-    Vector3f edge2 = c - a;
-    Vector3f n = edge1.cross(edge2).normalized();
+    Vector3f n = (b - a).cross(c - a).normalized();
     return n;
 }
 
-float mesh::sign(const Vector3f p1, const Vector3f p2, const Vector3f p3)
+float mesh::sign(Vector3f p1, Vector3f p2, Vector3f p3)
 {
     return (p1(0) - p3(0)) * (p2(1) - p3(1)) - (p2(0) - p3(0)) * (p1(1) - p3(1));
 }
 
-bool mesh::PointInTriangle(const Vector3f pt, const Vector3f v1, const Vector3f v2, const Vector3f v3)
+bool mesh::PointInTriangle(Vector3f pt, Vector3f v1, Vector3f v2, Vector3f v3)
 {
     float d1, d2, d3;
     bool has_neg, has_pos;
@@ -138,7 +137,9 @@ int colorMatch(Vector3f hit, Vector3f normal)
 
 void mesh::computeMask()
 {
-    fill(mask.begin(), mask.end(), vector<int>(x_pixel, 0));
+    parallel_for(size_t(0), size_t(y_char), [&](size_t(i)) {
+        fill(mask[i].begin(), mask[i].end(), 0);
+    });
 
     parallel_for(size_t(0), size_t(faces.cols()), [&](size_t(i)) {
         // cout<<normals.col(i)(2)<<"\n";
@@ -160,13 +161,12 @@ void mesh::computeMask()
             int x_max = int(max(a(0), max(b(0), c(0))));
             int y_min = int(min(a(1), min(b(1), c(1))));
             int y_max = int(max(a(1), max(b(1), c(1))));
-            for (unsigned int i = (int)(y_min / pixel_per_char_y) - 1; i <= (int)(y_max / pixel_per_char_y) || i < y_char; i += 1)
+            for (unsigned int i = (int)(y_min / pixel_per_char_y) - 1; i <= (int)(y_max / pixel_per_char_y); i += 1)
             {
-                for (unsigned int j = (int)(x_min / pixel_per_char_x) - 1; j <= (int)(x_max / pixel_per_char_x) || j < x_char; j += 1)
+                for (unsigned int j = (int)(x_min / pixel_per_char_x) - 1; j <= (int)(x_max / pixel_per_char_x); j += 1)
                 {
-                    if (i >= 0 && j >= 0 && PointInTriangle(Vector3f((float)j * pixel_per_char_x, (float)i * pixel_per_char_y, 0), a, b, c))
+                    if (PointInTriangle(Vector3f((float)j * pixel_per_char_x, (float)i * pixel_per_char_y, 0), a, b, c))
                     {
-                        // std::cout<<i<<" "<<j<<"\n";
                         mask[i][j] = colorMatch(center, normal);
                     }
                 }
@@ -249,4 +249,12 @@ void mesh::loadOff(string file)
         faces.col(i) = Vector3i(a, b, c);
         normals.col(i) = computeNormal(points.col(a), points.col(b), points.col(c));
     }
+}
+
+void mesh::parallelMatrixMultiplication(const Matrix3Xf &a, Matrix3Xf &b)
+{
+    // const Matrix3Xf tmp = b;
+    parallel_for(size_t(0), size_t(b.cols()), [&](size_t(i)) {
+        b.col(i) = a * b.col(i);
+    });
 }
