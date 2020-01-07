@@ -2,6 +2,12 @@
 
 Imagine you are observing the matrix world without a gpu......
 
+And you want to check out yoda
+
+![yoda in terminal](https://github.com/txstc55/matrix_viewer/raw/master/pic/matrix_effect.png)
+
+
+
 ## How to download with submodules?
 ```bash
 git clone --recurse-submodules https://github.com/txstc55/matrix_viewer
