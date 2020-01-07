@@ -40,6 +40,9 @@ Yes, in the mesh folder.
 - [ ] The tbb submodule I am using generates some tests regardless I turned that option off in cmake.
 - [ ] I still have no idea how to use opencl, will be nice to have it.
 - [ ] Will be nice if I can get the terminal size in pixel value in c++, so that I can resize the terminal easily.
+- [ ] Unable to custome the scene related settings, because I am lazy.
+- [ ] Unable to move the mesh, because I am lazy.
+- [ ] Unable to move the camera, because it is unnecessary.
 - [x] **Who am I kidding I probably won't touch those issues in the future**.
 
 ## Key presses?
