@@ -2,10 +2,15 @@
 
 Imagine you are observing the matrix world without a gpu......
 
+## How to download with submodules?
+```bash
+git clone --recurse-submodules https://github.com/txstc55/matrix_viewer
+```
+
 ## Why?
 I have no idea, I was bored.
 
-## How?
+## How to build?
 ```bash
 mkdir build
 cmake .. -DCMAKE_BUILD_TYPE=Release
