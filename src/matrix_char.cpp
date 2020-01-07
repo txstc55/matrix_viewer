@@ -74,7 +74,7 @@ int matrix_char::assignColor(const unsigned int column)
 {
     if (color_map[1][column] == 0)
     {
-        return 40 - rand() % 15;
+        return 30 - rand() % 10;
     }
     else
     {
