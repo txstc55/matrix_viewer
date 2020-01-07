@@ -28,7 +28,7 @@ set(TBB_BUILD_TESTS OFF CACHE BOOL " " FORCE)
 add_subdirectory(${THIRD_PARTY_DIR}eigen-git-mirror)
 
 
-add_compile_options(-std=c++11 -O3)
+add_compile_options(-std=c++11 -march=native)
 
 
 add_executable(${PROJECT_NAME}_bin ${SOURCES})
