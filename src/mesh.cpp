@@ -81,6 +81,7 @@ void mesh::scale(bool if_increase)
         if (scaling > 1.4)
         {
             scaling = 1.4;
+            return;
         }
     }
     else
@@ -89,6 +90,7 @@ void mesh::scale(bool if_increase)
         if (scaling < 0.4)
         {
             scaling = 0.4;
+            return;
         }
     }
     computeMask();
