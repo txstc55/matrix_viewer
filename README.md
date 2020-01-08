@@ -21,7 +21,7 @@ I have no idea, I was bored.
 mkdir build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
-make -j
+make -j2
 ./matrix_viewer_bin y_pixel x_pixel path/to/object.off
 ```
 
