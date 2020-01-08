@@ -19,6 +19,7 @@ I have no idea, I was bored.
 ## How to build?
 ```bash
 mkdir build
+cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j
 ./matrix_viewer_bin y_pixel x_pixel path/to/object.off
