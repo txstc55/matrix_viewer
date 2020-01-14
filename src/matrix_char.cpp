@@ -1,5 +1,6 @@
 #include "matrix_char.hpp"
 #include <iostream>
+#include <algorithm>
 using namespace std;
 using namespace tbb;
 
