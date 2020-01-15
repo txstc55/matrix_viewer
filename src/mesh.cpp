@@ -9,6 +9,10 @@ using namespace tbb;
 #define LIGHT_INTENSITY 1.0
 #define PHONG_EXP 10
 
+mesh::mesh()
+{
+}
+
 mesh::mesh(string file, int y_char, int x_char, int y_pixel, int x_pixel)
 {
     this->x_pixel = x_pixel;
@@ -27,7 +31,10 @@ mesh::mesh(string file, int y_char, int x_char, int y_pixel, int x_pixel)
     }
 
     scaling = 1.0;
-    loadOff(file);
+    if (file != "")
+    {
+        loadOff(file);
+    }
     computeMask();
 }
 

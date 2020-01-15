@@ -6,6 +6,9 @@
 #include "matrix_char.hpp"
 #include "mesh.hpp"
 #include <cstdlib>
+#include <sys/ioctl.h>
+#include <unistd.h>
+#include <fcntl.h>
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -13,21 +16,15 @@ int main(int argc, char *argv[])
     int x_pixel, y_pixel;
     string file_name = "";
 
-    if (argc == 4)
+    // get the terminal size
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    x_pixel = w.ws_xpixel;
+    y_pixel = w.ws_ypixel;
+
+    if (argc > 1)
     {
-        x_pixel = atoi(argv[2]);
-        y_pixel = atoi(argv[1]);
-        if (x_pixel <= 0 || y_pixel <= 0)
-        {
-            cout << "Pixel value needs to be a positive number\n";
-            return 1;
-        }
-        file_name = argv[3];
-    }
-    else
-    {
-        cout << "Need to support terminal pixel values and input a file name\n";
-        return 1;
+        file_name = argv[1];
     }
     // initialize screen
     initscr();
@@ -58,10 +55,11 @@ int main(int argc, char *argv[])
     unsigned int density = 10;
     matrix_char matrix = matrix_char(max_y, max_x, 20);
 
-    mesh m = mesh(file_name, max_y, max_x, y_pixel, x_pixel);
+    mesh m;
+    m = mesh(file_name, max_y, max_x, y_pixel, x_pixel);
 
+    // control keys logic
     int c;
-    unsigned int loop = 0;
     while (1)
     {
         c = wgetch(stdscr);
@@ -99,23 +97,10 @@ int main(int argc, char *argv[])
                     attroff(COLOR_PAIR(matrix.color_map[i][j] + m.mask[i][j]));
             }
         }
-        // attroff(COLOR_PAIR(30));
         matrix.nextFrame();
         move(0, 0);
     }
 
     endwin();
-
-    // for (unsigned int i=0; i<max_y; i++){
-    //     for (unsigned int j=0; j<max_x; j++){
-    //         cout<<m.mask[i][j]<<" ";
-    //     }
-    // }
-
-    // for (unsigned int i=0; i<15; i++){
-    //     cout<<i<<"\n";
-    //     cout<<m.returnPoints()<<"\n";
-    //     m.rotateX(true);
-    // }
     return 0;
 }

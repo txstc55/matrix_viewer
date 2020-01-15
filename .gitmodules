@@ -4,3 +4,6 @@
 [submodule "third_party/eigen-git-mirror"]
 	path = third_party/eigen-git-mirror
 	url = https://github.com/eigenteam/eigen-git-mirror
+[submodule "third_party/opencv"]
+	path = third_party/opencv
+	url = https://github.com/opencv/opencv
