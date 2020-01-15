@@ -22,15 +22,12 @@ mkdir build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j2
-./matrix_viewer_bin y_pixel x_pixel path/to/object.off
+./matrix_viewer_bin path/to/object.off
 ```
+The object.off is optional, without it you will just have a plain cmatrix effect.
 
-## How to get x_pixel and y_pixel?
-If your terminal supports xterm control sequence, do the following:
-```bash
-echo -e '\e[14t'
-```
-And you will get y_pixel, then x_pixel, use those.
+## ~~How to get x_pixel and y_pixel?~~
+Now the x and y pixel will be detected so no need to support it externally.
 
 ## Free meshes?
 Yes, in the mesh folder.
@@ -40,7 +37,7 @@ Yes, in the mesh folder.
 - [ ] The current Eigen submodule I am using is doing too many stuffs to say the least, may need to look for a new one.
 - [ ] The tbb submodule I am using generates some tests regardless I turned that option off in cmake.
 - [ ] I still have no idea how to use opencl, will be nice to have it.
-- [ ] Will be nice if I can get the terminal size in pixel value in c++, so that I can resize the terminal easily.
+- [x] Will be nice if I can get the terminal size in pixel value in c++, so that I can resize the terminal easily.
 - [ ] Unable to custome the scene related settings, because I am lazy.
 - [ ] Unable to move the mesh, because I am lazy.
 - [ ] Unable to move the camera, because it is unnecessary.
