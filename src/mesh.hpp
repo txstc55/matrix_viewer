@@ -19,7 +19,7 @@ private:
     float aspect_ratio;                       // the aspect ratio of the screen
 
 public:
-    mesh();
+    mesh();                                                                                 // empty init
     mesh(std::string file, int y_char, int x_char, int y_pixel, int x_pixel);               // init
     void loadOff(std::string file);                                                         // loading the off object and fill up the info
     Eigen::Vector3f computeNormal(Eigen::Vector3f a, Eigen::Vector3f b, Eigen::Vector3f c); // given triangle, calculate the normal
