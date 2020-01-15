@@ -19,11 +19,12 @@ private:
     float aspect_ratio;                       // the aspect ratio of the screen
 
 public:
-    mesh(std::string file, int y_char, int x_char, int y_pixel, int x_pixel);                                 // init
-    void loadOff(std::string file);                                                                           // loading the off object and fill up the info
+    mesh();
+    mesh(std::string file, int y_char, int x_char, int y_pixel, int x_pixel);               // init
+    void loadOff(std::string file);                                                         // loading the off object and fill up the info
     Eigen::Vector3f computeNormal(Eigen::Vector3f a, Eigen::Vector3f b, Eigen::Vector3f c); // given triangle, calculate the normal
-    void rotateY(bool if_increase);                                                                           // calculate one rotation around Y axis
-    void rotateX(bool if_increase);                                                                           // calculate one rotation around x axis
+    void rotateY(bool if_increase);                                                         // calculate one rotation around Y axis
+    void rotateX(bool if_increase);                                                         // calculate one rotation around x axis
     void scale(bool if_increase);
 
     Eigen::Matrix3Xf returnPoints();            // return the point coordinates
@@ -31,9 +32,9 @@ public:
     Eigen::Matrix3Xi returnFaces();             // return the faces
     std::vector<std::vector<int>> returnMask(); //return the mask overlay
 
-    float sign(Eigen::Vector3f p1, Eigen::Vector3f p2, Eigen::Vector3f p3);                                     // helper function to determine if point inside triangle
+    float sign(Eigen::Vector3f p1, Eigen::Vector3f p2, Eigen::Vector3f p3);                               // helper function to determine if point inside triangle
     bool PointInTriangle(Eigen::Vector3f pt, Eigen::Vector3f v1, Eigen::Vector3f v2, Eigen::Vector3f v3); // check if point inside triangle
-    int colorMatche(Eigen::Vector3f hit, Eigen::Vector3f normal);                                                     // calculate the color, returns 1~10
+    int colorMatche(Eigen::Vector3f hit, Eigen::Vector3f normal);                                         // calculate the color, returns 1~10
 
     std::vector<std::vector<int>> mask; // compute the mask
     void computeMask();                 // compute the mask overlay
