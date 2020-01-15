@@ -35,7 +35,7 @@ Yes, in the mesh folder.
 ## Issues?
 - [ ] To avoid too many if loops, the size of the item is limited so that it will not exceed the screen.
 - [ ] The current Eigen submodule I am using is doing too many stuffs to say the least, may need to look for a new one.
-- [ ] The tbb submodule I am using generates some tests regardless I turned that option off in cmake.
+- [x] The tbb submodule I am using generates some tests regardless I turned that option off in cmake.
 - [ ] I still have no idea how to use opencl, will be nice to have it.
 - [x] Will be nice if I can get the terminal size in pixel value in c++, so that I can resize the terminal easily.
 - [ ] Unable to custome the scene related settings, because I am lazy.
