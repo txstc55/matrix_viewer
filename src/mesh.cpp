@@ -140,7 +140,7 @@ int colorMatch(Vector3f hit, Vector3f normal)
     float spec = normal.transpose() * h;
     spec = max(spec, 0.0f);
     color += 1000 * (MATERIAL_COLOR * LIGHT_INTENSITY * diffuse + MATERIAL_COLOR * LIGHT_INTENSITY * pow(spec, PHONG_EXP));
-    color = int(max(min(floor(color / 100), 10.0f), 0.0f));
+    color = int(max(min(floor(color / 60), 15.0f), 0.0f));
     return color;
 }
 

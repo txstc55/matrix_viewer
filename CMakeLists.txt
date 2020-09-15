@@ -28,13 +28,14 @@ add_subdirectory(${THIRD_PARTY_DIR}tbb)
 set_property(TARGET tbb_static tbb_def_files PROPERTY FOLDER "dependencies")
 target_compile_definitions(tbb_static PUBLIC -DUSE_TBB)
 
+# add_subdirectory(${THIRD_PARTY_DIR}opencv)
 
-
-
-
+FIND_PACKAGE( OpenCV REQUIRED )
+INCLUDE_DIRECTORIES( ${OpenCV_INCLUDE_DIRS} )
+message(STATUS "Opencv lib location ${OpenCV_LIBS}")
 ### settings
 set(BUILD_TESTING OFF CACHE BOOL " " FORCE)
 
 add_compile_options(-std=c++11 -march=native)
 add_executable(${PROJECT_NAME}_bin ${SOURCES})
-target_link_libraries(${PROJECT_NAME}_bin ncurses tbb_static eigen)
+target_link_libraries(${PROJECT_NAME}_bin ${OpenCV_LIBS} ncurses tbb_static eigen)

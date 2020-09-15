@@ -74,11 +74,11 @@ int matrix_char::assignColor(const unsigned int column)
 {
     if (color_map[1][column] == 0)
     {
-        return 30 - rand() % 10;
+        return 35 - rand() % 15;
     }
     else
     {
-        int if_decrease = rand() % 20 > (40 - color_map[1][column]);
+        int if_decrease = rand() % 30 > (50 - color_map[1][column]);
         return max(color_map[1][column] - if_decrease, 21);
     }
 }
