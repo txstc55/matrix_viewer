@@ -55,50 +55,74 @@ int main(int argc, char *argv[])
     unsigned int density = 10;
     matrix_char matrix = matrix_char(max_y, max_x, 20);
 
-    mesh m;
-    m = mesh(file_name, max_y, max_x, y_pixel, x_pixel);
-
-    // control keys logic
-    int c;
-    while (1)
+    if (argc > 1)
     {
-        c = wgetch(stdscr);
-        switch (c)
+        mesh m;
+        m = mesh(file_name, max_y, max_x, y_pixel, x_pixel);
+
+        // control keys logic
+        int c;
+        while (1)
         {
-        case 'w':
-            m.rotateX(false);
-            break;
-        case 's':
-            m.rotateX(true);
-            break;
-        case 'a':
-            m.rotateY(true);
-            break;
-        case 'd':
-            m.rotateY(false);
-            break;
-        case 'k':
-            m.scale(true);
-            break;
-        case 'l':
-            m.scale(false);
-            break;
-        default:
-            break;
-        }
-        for (unsigned int i = 0; i < max_y; i++)
-        {
-            for (unsigned int j = 0; j < max_x; j++)
+            c = wgetch(stdscr);
+            switch (c)
             {
-                if (matrix.char_map[i][j] != ' ')
-                    attron(COLOR_PAIR(matrix.color_map[i][j] + m.mask[i][j]));
-                addch(matrix.char_map[i][j]);
-                if (matrix.char_map[i][j] != ' ')
-                    attroff(COLOR_PAIR(matrix.color_map[i][j] + m.mask[i][j]));
+            case 'w':
+                m.rotateX(false);
+                break;
+            case 's':
+                m.rotateX(true);
+                break;
+            case 'a':
+                m.rotateY(true);
+                break;
+            case 'd':
+                m.rotateY(false);
+                break;
+            case 'k':
+                m.scale(true);
+                break;
+            case 'l':
+                m.scale(false);
+                break;
+            default:
+                break;
             }
+            for (unsigned int i = 0; i < max_y; i++)
+            {
+                for (unsigned int j = 0; j < max_x; j++)
+                {
+                    if (matrix.char_map[i][j] != ' ')
+                        attron(COLOR_PAIR(matrix.color_map[i][j] + m.mask[i][j]));
+                    addch(matrix.char_map[i][j]);
+                    if (matrix.char_map[i][j] != ' ')
+                        attroff(COLOR_PAIR(matrix.color_map[i][j] + m.mask[i][j]));
+                }
+            }
+            matrix.nextFrame();
+            move(0, 0);
         }
-        matrix.nextFrame();
-        move(0, 0);
+    }
+    else
+    {
+        // int c;
+        while (1)
+        {
+            wgetch(stdscr);
+            for (unsigned int i = 0; i < max_y; i++)
+            {
+                for (unsigned int j = 0; j < max_x; j++)
+                {
+                    if (matrix.char_map[i][j] != ' ')
+                        attron(COLOR_PAIR(matrix.color_map[i][j]));
+                    addch(matrix.char_map[i][j]);
+                    if (matrix.char_map[i][j] != ' ')
+                        attroff(COLOR_PAIR(matrix.color_map[i][j]));
+                }
+            }
+            matrix.nextFrame();
+            move(0, 0);
+        }
     }
 
     endwin();

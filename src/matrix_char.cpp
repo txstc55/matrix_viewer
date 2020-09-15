@@ -12,7 +12,8 @@ matrix_char::matrix_char(const int max_y, const int max_x, const int min_length)
     char_map.resize(max_y);
     color_map.resize(max_y);
     first_row.resize(max_x);
-    parallel_for(size_t(0), size_t(max_y), [&](size_t i) {
+    for (int i = 0; i < max_y; i++)
+    {
         vector<char> char_holder(max_x);
         vector<int> color_holder(max_x);
         for (unsigned int j = 0; j < max_x; j++)
@@ -22,8 +23,9 @@ matrix_char::matrix_char(const int max_y, const int max_x, const int min_length)
         }
         char_map[i] = char_holder;
         color_map[i] = color_holder;
-    });
-    parallel_for(size_t(0), size_t(max_x), [&](size_t i) {
+    }
+    for (int i = 0; i < max_x; i++)
+    {
         const int random_length = rand() % 100 >= 99 ? rand() % max_y : -rand() % max_y;
         if (random_length > 0 && random_length < min_length)
         {
@@ -33,7 +35,7 @@ matrix_char::matrix_char(const int max_y, const int max_x, const int min_length)
         {
             first_row[i] = random_length;
         }
-    });
+    }
     // nextFrame();
     // nextFrame();
 }
@@ -85,7 +87,8 @@ void matrix_char::nextFrame()
 {
     for (unsigned int i = max_y - 1; i > 0; i--)
     {
-        parallel_for(size_t(0), size_t(max_x), [&](size_t j) {
+        for (int j = 0; j < max_x; j++)
+        {
             if (color_map[i - 1][j] == 0 && color_map[i][j] != 0)
             {
                 char_map[i][j] = ' ';
@@ -94,11 +97,12 @@ void matrix_char::nextFrame()
             {
                 char_map[i][j] = chars[rand() % chars_length];
             }
-        });
+        }
     }
     rotate(color_map.begin(), color_map.begin() + max_y - 1, color_map.end());
     color_map[0] = color_map[1];
-    parallel_for(size_t(0), size_t(max_x), [&](size_t i) {
+    for (int i = 0; i < max_x; i++)
+    {
         char_map[0][i] = assignChar(i);
-    });
+    }
 }
