@@ -55,4 +55,25 @@ And you will have your face in matrix world.
 
 Note that in order to have this feature, you will need opencv downloaded on your machine, and make sure the path can be searched by cmake.
 
+Note, that there might be some line in main.cpp you need to change, those lines are:
+
+Line 73:
+```c++
+if (!cap.open(1))
+```
+
+Since you may have created a virtual camera at this point, it is likely your default camera device is not 0 anymore. Here I changed to 1 because that is my webcam, you may have to test around from 0 to whatever number works for you.
+
+Line 168:
+```c++
+attron(COLOR_PAIR(matrix.color_map[i][j]) + int(average_brightness) * 25);
+```
+
+And line 173:
+```c++
+attroff(COLOR_PAIR(matrix.color_map[i][j]) + int(average_brightness) * 25);
+```
+
+The 25 can be increased or decreased for adjustment of brightness, just make sure to use the same number.
+
 With the help of (obs)[https://obsproject.com/], you can even create a virtual camera, use the terminal window as your camera, then join virtual meetings, a demo is at (here)[https://twitter.com/txstc55/status/1306084073518100481], have fun!
