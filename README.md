@@ -45,3 +45,14 @@ Yes, in the mesh folder.
 
 ## Key presses?
 *wasd* for rotations, *k* and *l* for scaling, go figure, there are only 6 keys.
+
+## New feature, camera
+Now, run the code as
+```bash
+./matrix_viewer_bin camera
+```
+And you will have your face in matrix world.
+
+Note that in order to have this feature, you will need opencv downloaded on your machine, and make sure the path can be searched by cmake.
+
+With the help of (obs)[https://obsproject.com/], you can even create a virtual camera, use the terminal window as your camera, then join virtual meetings, a demo is at (here)[https://twitter.com/txstc55/status/1306084073518100481], have fun!
